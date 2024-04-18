@@ -85,5 +85,22 @@ function uploadExcel(req, res) {
     });
 }
 
+function getUsers(req, res) {
+    // Query to select all users from the database
+    const sql = "SELECT * FROM users";
 
-module.exports = { handleFileUpload, uploadExcel };
+    // Execute the query
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching users:', err);
+            return res.status(500).json({ error: 'An error occurred while fetching users.' });
+        }
+
+        // Send the fetched users data to the client
+        res.status(200).json(results);
+    });
+}
+
+
+
+module.exports = { handleFileUpload, uploadExcel, getUsers };
